@@ -48,16 +48,6 @@ exports.index = function ( req, res, next ){
 };
 
 // 新增成功導回 '/'
-// exports.create = function(req, res) {
-//   console.log('創建todo');
-//   new Todo({
-//     content       : req.body.content,
-//     updated_at    : Date.now()
-//   }).save(function(err, todo, conunt) {
-//     res.redirect('/');        //重新導向功能
-//   });
-// };
-
 exports.create = function ( req, res, next ){
   new Todo({
       user_id    : req.cookies.user_id,
@@ -71,15 +61,6 @@ exports.create = function ( req, res, next ){
 };
 
 //找尋對應id後刪除該項目後重新導向 '/'
-// exports.destroy = function(req, res){
-//   console.log('刪除todo');
-//   Todo.findById(req.params.id, function(err, todo) {
-//     todo.remove( function(err, todo) {
-//       res.redirect( '/' );
-//     });
-//   });
-// };
-
 exports.destroy = function ( req, res, next ){
   Todo.findById( req.params.id, function ( err, todo ){
     var user_id = req.cookies ?
@@ -97,20 +78,7 @@ exports.destroy = function ( req, res, next ){
   });
 };
 
-// exports.edit = function(req, res) {
-//   console.log('編輯todo');
-//   Todo
-//   .find()
-//   .sort('-updated_at')
-//   .exec(function(err, todos) {
-//     res.render('edit', {
-//         title   : 'Express Todo Example',
-//         todos   : todos,
-//         current : req.params.id
-//     });
-//   });
-// };
-
+// 這是給網頁重新導向編輯網頁用的(這個功能可以寫在前端)
 exports.edit = function( req, res, next ){
   var user_id = req.cookies ?
       req.cookies.user_id : undefined;
@@ -129,16 +97,7 @@ exports.edit = function( req, res, next ){
     });
 };
 
-// exports.update = function(req, res){
-//   Todo.findById(req.params.id, function(err, todo) {
-//     todo.content    = req.body.content;
-//     todo.updated_at = Date.now();
-//     todo.save(function(err, todo, count) {
-//       res.redirect( '/' );
-//     });
-//   });
-// };
-
+// 先找到對應的todo再重存一次
 exports.update = function( req, res, next ){
   console.log('更改todo');
   Todo.findById( req.params.id, function ( err, todo ){

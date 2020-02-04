@@ -30,6 +30,7 @@ app.use(sassMiddleware({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use( routes.current_user );
 
 
 // app.get('/', routes.index);
@@ -43,7 +44,6 @@ app.post( '/create',      routes.create );
 app.get(  '/destroy/:id', routes.destroy );
 app.get(  '/edit/:id',    routes.edit );
 app.post( '/update/:id',  routes.update );
-app.use( routes.current_user );
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
